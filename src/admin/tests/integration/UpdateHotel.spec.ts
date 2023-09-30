@@ -3,7 +3,7 @@ import { AddressLike, Hotel } from "../../domain/Hotel";
 import { HotelRepository } from "../../domain/HotelRepository";
 import { InMemoryHotelRepository } from "../../infra/database/InMemoryHotelRepository";
 
-describe("CreateHotel (narrow integration)", () => {
+describe("UpdateHotel (narrow integration)", () => {
     let address: AddressLike;
     let repository: HotelRepository;
     let sut: UpdateHotel;
