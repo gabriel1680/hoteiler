@@ -12,11 +12,6 @@ describe("Hotel (unit)", () => {
         expect(hotel.rooms).toHaveLength(0);
     });
 
-    it("should be able to add room", () => {
-        hotel.addRoom(100, 80, "AVAILABLE");
-        expect(hotel.rooms).toHaveLength(1);
-    });
-
     it("should be able to change address", () => {
         hotel.changeAddress({ country: "country2", street: "street", zipcode: "123" });
         expect(hotel.address.country).toBe("country2");

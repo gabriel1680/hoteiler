@@ -1,20 +1,22 @@
-import crypto from "node:crypto";
+import { Id } from "../../@kernel/domain/Id";
+import { HotelRoomStatus } from "./HotelRoomStatus";
 
 export class HotelRoom {
     constructor(
-        public readonly id: string,
+        public readonly id: Id,
         public readonly number: number,
         public readonly price: number,
-        public status: string,
+        public status: HotelRoomStatus,
     ) {}
 
     static create(number: number, price: number, status: string) {
-        return new HotelRoom(crypto.randomUUID(), number, price, status);
+        return new HotelRoom(Id.random(), number, price, new HotelRoomStatus(status));
     }
 
     book() {
-        if (this.status === "UNAVAILABLE")
+        if (!this.status.isAvailable())
             throw new Error("cannot book a unavailable room");
-        this.status = "UNAVAILABLE";
+        this.status = this.status.toUnavailable();
     }
 }
+

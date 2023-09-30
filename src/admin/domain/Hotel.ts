@@ -3,16 +3,13 @@ import { Address } from "./Address";
 import { HotelRoom } from "./HotelRoom";
 
 export class Hotel {
-    private _rooms: HotelRoom[];
-
     constructor(
         public readonly id: Id,
         private _address: Address,
         private _availableRooms: number,
-        private _bookedRooms: number
-    ) {
-        this._rooms = [];
-    }
+        private _bookedRooms: number,
+        private _rooms: HotelRoom[] = []
+    ) {}
 
     static create(aAddress: AddressLike, availableRooms: number, bookedRooms: number) {
         const address = new Address(aAddress.country, aAddress.street, aAddress.zipcode);
@@ -25,10 +22,6 @@ export class Hotel {
 
     changeAvailableRooms(rooms: number) {
         this._availableRooms = rooms;
-    }
-
-    addRoom(number: number, price: number, status: string) {
-        this._rooms.push(HotelRoom.create(number, price, status));
     }
 
     get address() {
