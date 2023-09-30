@@ -45,7 +45,7 @@ export class Hotel {
     }
 }
 
-type AddressLike = {
+export type AddressLike = {
     country: string;
     street: string;
     zipcode: string;
