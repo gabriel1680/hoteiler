@@ -24,6 +24,10 @@ export class Hotel {
         this._availableRooms = rooms;
     }
 
+    addRoom(number: number, price: number, status: string) {
+        this._rooms.push(HotelRoom.create(number, price, status));
+    }
+
     get address() {
         return this._address;
     }

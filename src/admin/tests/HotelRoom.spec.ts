@@ -11,7 +11,7 @@ describe("HotelRoom (unit)", () => {
 
     it("should be able to book a room", () => {
         hotelRoom.book();
-        expect(hotelRoom.status.value).toBe("UNAVAILABLE");
+        expect(hotelRoom.isAvailable()).toBeFalsy();
     });
 
     it("should not be able to book a unavailable room", () => {

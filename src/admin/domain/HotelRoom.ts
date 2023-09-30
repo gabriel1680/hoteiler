@@ -18,5 +18,9 @@ export class HotelRoom {
             throw new Error("cannot book a unavailable room");
         this.status = this.status.toUnavailable();
     }
+
+    isAvailable() {
+        return this.status.isAvailable();
+    }
 }
 

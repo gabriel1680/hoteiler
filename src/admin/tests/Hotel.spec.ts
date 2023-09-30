@@ -21,5 +21,10 @@ describe("Hotel (unit)", () => {
         hotel.changeAvailableRooms(3);
         expect(hotel.availableRooms).toBe(3);
     });
+
+    it("should be able to add a room", () => {
+        hotel.addRoom(102, 100, "AVAILABLE");
+        expect(hotel.rooms).toHaveLength(1);
+    });
 });
 
