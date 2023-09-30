@@ -1,10 +1,11 @@
+import { Id } from "../../@kernel/domain/Id";
 import { Hotel } from "../domain/Hotel";
 
 describe("Hotel (unit)", () => {
     let hotel: Hotel;
 
     beforeEach(() => {
-        hotel = new Hotel("1", {}, 2);
+        hotel = Hotel.create({}, 2);
     });
 
     it("should be able to create a hotel with all rooms available and empty rooms", () => {

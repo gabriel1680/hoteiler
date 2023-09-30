@@ -1,3 +1,4 @@
+import { Id } from "../../@kernel/domain/Id";
 import { HotelRoom } from "./HotelRoom";
 
 export class Hotel {
@@ -6,12 +7,16 @@ export class Hotel {
     private _rooms: HotelRoom[];
 
     constructor(
-        public readonly id: string,
+        public readonly id: Id,
         private _address: object,
         private _totalRooms: number
     ) {
         this._availableRooms = _totalRooms;
         this._rooms = [];
+    }
+
+    static create(address: object, totalRooms: number) {
+        return new Hotel(Id.random(), address, totalRooms);
     }
 
     bookRooms(rooms: number) {
