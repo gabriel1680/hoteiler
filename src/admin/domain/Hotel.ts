@@ -1,28 +1,30 @@
 import { Id } from "../../@kernel/domain/Id";
+import { Address } from "./Address";
 import { HotelRoom } from "./HotelRoom";
 
 export class Hotel {
-    private _availableRooms: number;
-
     private _rooms: HotelRoom[];
 
     constructor(
         public readonly id: Id,
-        private _address: object,
-        private _totalRooms: number
+        private _address: Address,
+        private _availableRooms: number,
+        private _bookedRooms: number
     ) {
-        this._availableRooms = _totalRooms;
         this._rooms = [];
     }
 
-    static create(address: object, totalRooms: number) {
-        return new Hotel(Id.random(), address, totalRooms);
+    static create(aAddress: AddressLike, availableRooms: number, bookedRooms: number) {
+        const address = new Address(aAddress.country, aAddress.street, aAddress.zipcode);
+        return new Hotel(Id.random(), address, availableRooms, bookedRooms);
     }
 
-    bookRooms(rooms: number) {
-        this._availableRooms -= rooms;
-        if (this._availableRooms < 0)
-            throw new Error("cannot book more rooms than hotel capacity");
+    changeAddress(aAddress: AddressLike) {
+        this._address = new Address(aAddress.country, aAddress.street, aAddress.zipcode);
+    }
+
+    changeAvailableRooms(rooms: number) {
+        this._availableRooms = rooms;
     }
 
     addRoom(number: number, price: number, status: string) {
@@ -33,15 +35,22 @@ export class Hotel {
         return this._address;
     }
 
-    get totalRooms() {
-        return this._totalRooms;
-    }
-
     get availableRooms() {
         return this._availableRooms;
+    }
+
+    get bookedRooms() {
+        return this._bookedRooms;
     }
 
     get rooms() {
         return [...this._rooms];
     }
 }
+
+type AddressLike = {
+    country: string;
+    street: string;
+    zipcode: string;
+}
+
