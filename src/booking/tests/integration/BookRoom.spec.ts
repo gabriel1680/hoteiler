@@ -5,7 +5,7 @@ import { HotelFacade } from "../../../admin/facade/HotelFacade";
 import { BookRoom } from "../../application/usecase/BookRoom";
 import { BookRepository } from "../../domain/BookRepository";
 import { InMemoryBookRepository } from "../../infra/database/InMemoryBookRepository";
-import { InMemoryEventBus } from "../../infra/event-bus/InMemoryEventBus";
+import { InMemoryEventBus } from "../../../@kernel/infra/event-bus/InMemoryEventBus";
 
 describe("BookRoom (narrow integration)", () => {
     let sut: BookRoom;

@@ -1,5 +1,5 @@
-import { EventBus } from "../../../@kernel/application/EventBus";
-import { DomainEvent } from "../../../@kernel/domain/DomainEvent";
+import { EventBus } from "../../application/EventBus";
+import { DomainEvent } from "../../domain/DomainEvent";
 
 export class InMemoryEventBus implements EventBus {
 
