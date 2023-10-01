@@ -1,18 +1,35 @@
 import { Id } from "../../@kernel/domain/Id";
 import { BookPeriod } from "./BookPeriod";
+import { RoomBooked } from "./RoomBooked";
 
 export class Book {
+    private event?: RoomBooked;
+
      constructor(
         public readonly id: Id,
-        public readonly roomId: string,
+        public readonly hotelId: Id,
+        public readonly roomNumber: number,
         public readonly period: BookPeriod,
     ) {}
 
-    static create(roomId: string, startDate: Date, endDate: Date) {
-        return new Book(
+    static create(hotelId: string, roomNumber: number, startDate: Date, endDate: Date) {
+        const book = new Book(
             Id.random(),
-            roomId,
+            new Id(hotelId),
+            roomNumber,
             new BookPeriod(startDate, endDate),
         );
+        book.event = new RoomBooked({
+            id: book.id.value,
+            hotelId: book.hotelId.value,
+            roomNumber: book.roomNumber,
+            startDate: book.period.startDate,
+            endDate: book.period.endDate,
+        });
+        return book;
+    }
+
+    getEvent() {
+        return this.event;
     }
 }

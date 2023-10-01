@@ -1,6 +1,7 @@
 import { Id } from "../../@kernel/domain/Id";
 import { Address } from "./Address";
 import { HotelRoom } from "./HotelRoom";
+import { RoomBook } from "./RoomBook";
 
 export class Hotel {
     constructor(
@@ -26,6 +27,15 @@ export class Hotel {
 
     addRoom(number: number, price: number, status: string) {
         this._rooms.push(HotelRoom.create(number, price, status));
+    }
+
+    bookRoom(book: RoomBook) {
+        const room = this._rooms.find((r) => r.number === book.roomNumber);
+        if (!room)
+            throw new Error(`Room with number ${book.roomNumber} not found on hotel ${this.id.value}`);
+        room.book(book.period);
+        this._availableRooms--; 
+        this._bookedRooms++;
     }
 
     get address() {

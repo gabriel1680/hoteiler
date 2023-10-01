@@ -6,4 +6,16 @@ export class BookPeriod {
         if (endDate.getTime() <= startDate.getTime())
             throw new Error("invalid period");
     }
+
+    equals(period: BookPeriod): boolean {
+        if (!period) return false;
+        if (!(period instanceof BookPeriod)) return false;
+        return this.compareDates(period);
+    }
+
+    private compareDates(period: BookPeriod): boolean {
+        return this.startDate === period.startDate 
+            && this.endDate === period.endDate;
+    }
 }
+
