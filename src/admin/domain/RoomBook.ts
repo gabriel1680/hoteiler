@@ -1,4 +1,4 @@
-import { BookPeriod } from "../../booking/domain/BookPeriod";
+import { BookPeriod } from "../../@kernel/domain/BookPeriod";
 
 export class RoomBook {
      constructor(

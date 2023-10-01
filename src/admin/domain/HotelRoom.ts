@@ -1,5 +1,5 @@
 import { Id } from "../../@kernel/domain/Id";
-import { BookPeriod } from "../../booking/domain/BookPeriod";
+import { BookPeriod } from "../../@kernel/domain/BookPeriod";
 import { HotelRoomStatus } from "./HotelRoomStatus";
 
 export class HotelRoom {

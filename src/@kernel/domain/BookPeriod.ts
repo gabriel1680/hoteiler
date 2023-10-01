@@ -17,5 +17,13 @@ export class BookPeriod {
         return this.startDate === period.startDate 
             && this.endDate === period.endDate;
     }
+
+    toString() {
+        return `${this.dateToString(this.startDate)} to ${this.dateToString(this.endDate)}`;
+    }
+
+    private dateToString(date: Date) {
+        return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    }
 }
 

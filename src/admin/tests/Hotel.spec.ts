@@ -26,5 +26,7 @@ describe("Hotel (unit)", () => {
         hotel.addRoom(102, 100, "AVAILABLE");
         expect(hotel.rooms).toHaveLength(1);
     });
+
+    it.todo("should be able to book a room");
 });
 
