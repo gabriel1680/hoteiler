@@ -1,3 +1,3 @@
 export interface TransactionalSession {
-    executeAtomicaly(operation: () => Promise<void>): Promise<void>;
+    executeAtomically(operation: () => Promise<void>): Promise<void>;
 }

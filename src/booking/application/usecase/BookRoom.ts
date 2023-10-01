@@ -15,7 +15,7 @@ export class BookRoom implements UseCase<Input, Output> {
 
     async execute(input: Input): Promise<void> {
         const book = Book.create(input.hotelId, input.roomNumber, input.startDate, input.endDate);
-        await this.session.executeAtomicaly(async () => {
+        await this.session.executeAtomically(async () => {
             await this.hotelFacade.bookRoom(input);
             await this.repository.save(book);
         });
