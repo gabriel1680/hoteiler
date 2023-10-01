@@ -8,6 +8,7 @@ import { BookRoom } from "src/booking/application/usecase/BookRoom";
 import { BookRepository } from "src/booking/domain/BookRepository";
 import { TypeORMBookRepository } from "../../database/typeorm/TypeORMBookRepository";
 import { BookEntity } from "../../database/typeorm/entities/BookEntity";
+import { ListBook } from "src/booking/application/usecase/ListBook";
 
 export const bookingProviders: Provider[] = [
 	{
@@ -30,5 +31,10 @@ export const bookingProviders: Provider[] = [
 			"HotelFacade",
 			"EventBus",
 		],
+	},
+	{
+		provide: ListBook,
+		useFactory: (dataSource: DataSource) => new ListBook(dataSource),
+		inject: ["DataSource"],
 	},
 ];
