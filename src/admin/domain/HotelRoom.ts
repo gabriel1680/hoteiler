@@ -32,5 +32,9 @@ export class HotelRoom {
             if (bookedPeriod.equals(period)) return false;
         return true;
     }
+
+    getBookedPeriods() {
+        return [...this.bookedPeriods];
+    }
 }
 

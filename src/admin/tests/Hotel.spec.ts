@@ -1,4 +1,5 @@
 import { Hotel } from "../domain/Hotel";
+import { RoomBook } from "../domain/RoomBook";
 
 describe("Hotel (unit)", () => {
     let hotel: Hotel;
@@ -27,6 +28,11 @@ describe("Hotel (unit)", () => {
         expect(hotel.rooms).toHaveLength(1);
     });
 
-    it.todo("should be able to book a room");
+    it("should be able to book a room", () => {
+        hotel.addRoom(104, 200, "AVAILABLE");
+        const book = RoomBook.create(104, new Date(2023, 11, 15), new Date(2023, 11, 20));
+        hotel.bookRoom(book);
+        expect(hotel.rooms[0].getBookedPeriods()).toHaveLength(1);
+    });
 });
 
