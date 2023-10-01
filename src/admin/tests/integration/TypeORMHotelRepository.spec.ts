@@ -19,6 +19,7 @@ describe("TypeORMHotelRepository (integration)", () => {
 	beforeEach(async () => {
 		await repository.clear();
 		hotel = Hotel.create(
+			"admin@user.com",
 			{ country: "country", street: "street", zipcode: "123" },
 			2,
 			1

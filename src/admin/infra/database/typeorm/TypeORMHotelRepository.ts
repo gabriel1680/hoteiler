@@ -14,7 +14,7 @@ export class TypeORMHotelRepository implements HotelRepository {
 	async save(hotel: Hotel): Promise<void> {
 		const hotelData = this.repository.create({
 			id: hotel.id.value,
-			name: "some name",
+			name: hotel.name,
 			address: hotel.address.toString(),
 			rooms_available: hotel.availableRooms,
 			rooms_booked: hotel.bookedRooms,
@@ -38,6 +38,7 @@ export class TypeORMHotelRepository implements HotelRepository {
 		if (!hotelData) return null;
 		return new Hotel(
 			new Id(hotelData.id),
+			hotelData.name,
 			Address.fromStr(hotelData.address),
 			hotelData.rooms_available,
 			hotelData.rooms_booked,
