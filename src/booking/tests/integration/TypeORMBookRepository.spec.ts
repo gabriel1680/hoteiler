@@ -1,7 +1,9 @@
+import { DataSource, Repository } from "typeorm";
+
+import { TypeORMFixture } from "src/@kernel/tests/fixture/TypeORMFixture";
 import { Book } from "src/booking/domain/Book";
 import { TypeORMBookRepository } from "src/booking/infra/database/typeorm/TypeORMBookRepository";
 import { BookEntity } from "src/booking/infra/database/typeorm/entities/BookEntity";
-import { DataSource, Repository } from "typeorm";
 
 describe("TypeORMBookRepository (integration)", () => {
 	let sut: TypeORMBookRepository;
@@ -10,14 +12,7 @@ describe("TypeORMBookRepository (integration)", () => {
 	let book: Book;
 
 	beforeAll(async () => {
-		connection = new DataSource({
-			type: "sqlite",
-			database: ":memory:",
-			synchronize: true,
-			entities: [__dirname + "/../../../**/entities/**/*.{js,ts}"],
-			logging: ["error"],
-		});
-		await connection.initialize();
+		connection = await TypeORMFixture.createSqliteDataSource();
 		repository = connection.getRepository(BookEntity);
 		sut = new TypeORMBookRepository(repository);
 	});
