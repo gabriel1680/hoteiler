@@ -20,7 +20,7 @@ export const sharedProviders: Provider[] = [
                 type: "sqlite",
                 database: ":memory:",
                 synchronize: true,
-                entities: [__dirname + "/../../../**/entities/**/*.{js,ts}"],
+                entities: [__dirname + "/../../../../**/entities/**/*.{js,ts}"],
                 logging: ["error"],
             });
             await ds.initialize();
