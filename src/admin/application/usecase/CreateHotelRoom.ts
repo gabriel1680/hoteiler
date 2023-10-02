@@ -18,6 +18,6 @@ type Input = {
     number: number;
     price: number;
     status: string;
-}
+};
 
 type Output = void;

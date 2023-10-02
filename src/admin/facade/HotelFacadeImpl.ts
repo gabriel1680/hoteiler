@@ -9,9 +9,12 @@ export class HotelFacadeImpl implements HotelFacade {
         const hotel = await this.repository.get(input.hotelId);
         if (!hotel)
             throw new Error(`hotel with ID: ${input.hotelId} not found`);
-        const book = RoomBook.create(input.roomNumber, input.startDate, input.endDate);
+        const book = RoomBook.create(
+            input.roomNumber,
+            input.startDate,
+            input.endDate
+        );
         hotel.bookRoom(book);
         await this.repository.save(hotel);
     }
 }
-

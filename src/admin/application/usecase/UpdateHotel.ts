@@ -2,7 +2,6 @@ import { UseCase } from "../../../@kernel/application/UseCase";
 import { HotelRepository } from "../../domain/HotelRepository";
 
 export class UpdateHotel implements UseCase<Input, Output> {
-
     constructor(private readonly repository: HotelRepository) {}
 
     async execute(input: Input): Promise<void> {
@@ -16,15 +15,14 @@ export class UpdateHotel implements UseCase<Input, Output> {
 }
 
 type Input = {
-    id: string,
-    name: string,
+    id: string;
+    name: string;
     address: {
-        country: string,
-        street: string,
-        zipcode: string,
-    },
-    roomsAvailable: number,
-}
+        country: string;
+        street: string;
+        zipcode: string;
+    };
+    roomsAvailable: number;
+};
 
 type Output = void;
-

@@ -8,18 +8,25 @@ export class HotelRoom {
         public readonly number: number,
         public readonly price: number,
         public status: HotelRoomStatus,
-        private readonly bookedPeriods: BookPeriod[] = [],
+        private readonly bookedPeriods: BookPeriod[] = []
     ) {}
 
     static create(number: number, price: number, status: string) {
-        return new HotelRoom(Id.random(), number, price, new HotelRoomStatus(status));
+        return new HotelRoom(
+            Id.random(),
+            number,
+            price,
+            new HotelRoomStatus(status)
+        );
     }
 
     book(period: BookPeriod) {
         if (!this.status.isAvailable())
             throw new Error("cannot book a unavailable room");
         if (!this.isAvailableOn(period))
-            throw new Error(`Room ${this.number} is already book at period ${period}`);
+            throw new Error(
+                `Room ${this.number} is already book at period ${period}`
+            );
         this.bookedPeriods.push(period);
     }
 
@@ -37,4 +44,3 @@ export class HotelRoom {
         return [...this.bookedPeriods];
     }
 }
-

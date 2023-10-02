@@ -11,30 +11,30 @@ import { BookEntity } from "../../database/typeorm/entities/BookEntity";
 import { ListBook } from "src/booking/application/usecase/ListBook";
 
 export const bookingProviders: Provider[] = [
-	{
-		provide: "BookRepository",
-		useFactory: (connection: DataSource) =>
-			new TypeORMBookRepository(connection.getRepository(BookEntity)),
-		inject: ["DataSource"],
-	},
-	{
-		provide: BookRoom,
-		useFactory: (
-			session: TransactionalSession,
-			repository: BookRepository,
-			hotelService: HotelFacade,
-			eventBus: EventBus
-		) => new BookRoom(session, repository, hotelService, eventBus),
-		inject: [
-			"TransactionalSession",
-			"BookRepository",
-			"HotelFacade",
-			"EventBus",
-		],
-	},
-	{
-		provide: ListBook,
-		useFactory: (dataSource: DataSource) => new ListBook(dataSource),
-		inject: ["DataSource"],
-	},
+    {
+        provide: "BookRepository",
+        useFactory: (connection: DataSource) =>
+            new TypeORMBookRepository(connection.getRepository(BookEntity)),
+        inject: ["DataSource"],
+    },
+    {
+        provide: BookRoom,
+        useFactory: (
+            session: TransactionalSession,
+            repository: BookRepository,
+            hotelService: HotelFacade,
+            eventBus: EventBus
+        ) => new BookRoom(session, repository, hotelService, eventBus),
+        inject: [
+            "TransactionalSession",
+            "BookRepository",
+            "HotelFacade",
+            "EventBus",
+        ],
+    },
+    {
+        provide: ListBook,
+        useFactory: (dataSource: DataSource) => new ListBook(dataSource),
+        inject: ["DataSource"],
+    },
 ];

@@ -3,21 +3,21 @@ import { RoomEntity } from "./RoomEntity";
 
 @Entity({ name: "hotels" })
 export class HotelEntity {
-	@PrimaryColumn("uuid")
-	id: string;
+    @PrimaryColumn("uuid")
+    id: string;
 
-	@Column()
-	name: string;
+    @Column()
+    name: string;
 
-	@Column()
-	address: string;
+    @Column()
+    address: string;
 
-	@Column()
-	rooms_available: number;
+    @Column()
+    rooms_available: number;
 
-	@Column()
-	rooms_booked: number;
+    @Column()
+    rooms_booked: number;
 
-	@OneToMany(() => RoomEntity, (room) => room.hotel, { cascade: true })
-	rooms: RoomEntity[];
+    @OneToMany(() => RoomEntity, (room) => room.hotel, { cascade: true })
+    rooms: RoomEntity[];
 }

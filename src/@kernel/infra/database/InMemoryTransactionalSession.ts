@@ -5,4 +5,3 @@ export class InMemoryTransactionalSession implements TransactionalSession {
         await operation();
     }
 }
-

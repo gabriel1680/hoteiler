@@ -1,3 +1,4 @@
+import { RoomBooked } from "src/booking/domain/RoomBooked";
 import { EventBus } from "../../../@kernel/application/EventBus";
 import { TransactionalSession } from "../../../@kernel/application/TransactionalSession";
 import { UseCase } from "../../../@kernel/application/UseCase";
@@ -10,16 +11,21 @@ export class BookRoom implements UseCase<Input, Output> {
         private readonly session: TransactionalSession,
         private readonly repository: BookRepository,
         private readonly hotelFacade: HotelFacade,
-        private readonly eventBus: EventBus,
+        private readonly eventBus: EventBus
     ) {}
 
     async execute(input: Input): Promise<void> {
-        const book = Book.create(input.hotelId, input.roomNumber, input.startDate, input.endDate);
+        const book = Book.create(
+            input.hotelId,
+            input.roomNumber,
+            input.startDate,
+            input.endDate
+        );
         await this.session.executeAtomically(async () => {
             await this.hotelFacade.bookRoom(input);
             await this.repository.save(book);
         });
-        await this.eventBus.publish(book.getEvent()!);
+        await this.eventBus.publish(book.getEvent() as RoomBooked);
     }
 }
 
@@ -28,7 +34,6 @@ type Input = {
     roomNumber: number;
     startDate: Date;
     endDate: Date;
-}
+};
 
 type Output = void;
-

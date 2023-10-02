@@ -3,24 +3,24 @@ import { HotelEntity } from "./HotelEntity";
 
 @Entity({ name: "rooms" })
 export class RoomEntity {
-	@PrimaryColumn("uuid")
-	id: string;
+    @PrimaryColumn("uuid")
+    id: string;
 
-	@Column()
-	hotel_id: string;
+    @Column()
+    hotel_id: string;
 
-	@Column()
-	number: number;
+    @Column()
+    number: number;
 
-	@Column()
-	price: number;
+    @Column()
+    price: number;
 
-	@Column()
-	status: string;
+    @Column()
+    status: string;
 
-	@ManyToOne(() => HotelEntity, (hotel) => hotel.rooms, {
-		onDelete: "CASCADE",
-	})
-	@JoinColumn({ referencedColumnName: "id", name: "hotel_id" })
-	hotel: HotelEntity;
+    @ManyToOne(() => HotelEntity, (hotel) => hotel.rooms, {
+        onDelete: "CASCADE",
+    })
+    @JoinColumn({ referencedColumnName: "id", name: "hotel_id" })
+    hotel: HotelEntity;
 }

@@ -15,6 +15,6 @@ describe("BookPeriod (unit)", () => {
 
     it("should be able to convert to string", () => {
         const period = new BookPeriod(pastDate, futureDate);
-        expect(`${period}`).toBe("2018-11-15 to 2023-11-15")
+        expect(`${period}`).toBe("2018-11-15 to 2023-11-15");
     });
 });

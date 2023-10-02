@@ -1,7 +1,7 @@
 export class BookPeriod {
     constructor(
         public readonly startDate: Date,
-        public readonly endDate: Date,
+        public readonly endDate: Date
     ) {
         if (endDate.getTime() <= startDate.getTime())
             throw new Error("invalid period");
@@ -14,16 +14,19 @@ export class BookPeriod {
     }
 
     private compareDates(period: BookPeriod): boolean {
-        return this.startDate === period.startDate 
-            && this.endDate === period.endDate;
+        return (
+            this.startDate === period.startDate &&
+            this.endDate === period.endDate
+        );
     }
 
     toString() {
-        return `${this.dateToString(this.startDate)} to ${this.dateToString(this.endDate)}`;
+        return `${this.dateToString(this.startDate)} to ${this.dateToString(
+            this.endDate
+        )}`;
     }
 
     private dateToString(date: Date) {
         return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
     }
 }
-

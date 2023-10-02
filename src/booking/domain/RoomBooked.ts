@@ -10,5 +10,4 @@ export type RoomBookedData = {
     roomNumber: number;
     startDate: Date;
     endDate: Date;
-}
-
+};

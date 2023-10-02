@@ -8,39 +8,39 @@ import { TypeORMHotelRepository } from "src/admin/infra/database/typeorm/TypeORM
 import { HotelEntity } from "src/admin/infra/database/typeorm/entities/HotelEntity";
 
 describe("TypeORMTransactionSessionRepository (integration)", () => {
-	let sut: TypeORMTransactionSession;
-	let connection: DataSource;
-	let hotelRepository: HotelRepository;
-	let repository: Repository<HotelEntity>;
-	let hotel: Hotel;
+    let sut: TypeORMTransactionSession;
+    let connection: DataSource;
+    let hotelRepository: HotelRepository;
+    let repository: Repository<HotelEntity>;
+    let hotel: Hotel;
 
-	beforeAll(async () => {
-		connection = await TypeORMFixture.createSqliteDataSource();
-		sut = new TypeORMTransactionSession(connection);
-		repository = connection.getRepository(HotelEntity);
-		hotelRepository = new TypeORMHotelRepository(repository);
-	});
+    beforeAll(async () => {
+        connection = await TypeORMFixture.createSqliteDataSource();
+        sut = new TypeORMTransactionSession(connection);
+        repository = connection.getRepository(HotelEntity);
+        hotelRepository = new TypeORMHotelRepository(repository);
+    });
 
-	beforeEach(async () => {
-		await repository.clear();
-		hotel = Hotel.create(
-			"admin@user.com",
-			{ country: "country", street: "street", zipcode: "123" },
-			2,
-			1
-		);
-		hotel.addRoom(102, 159, "AVAILABLE");
-	});
+    beforeEach(async () => {
+        await repository.clear();
+        hotel = Hotel.create(
+            "admin@user.com",
+            { country: "country", street: "street", zipcode: "123" },
+            2,
+            1
+        );
+        hotel.addRoom(102, 159, "AVAILABLE");
+    });
 
-	afterAll(async () => {
-		await connection.destroy();
-	});
+    afterAll(async () => {
+        await connection.destroy();
+    });
 
-	it("should rollback operation (guarantee atomicity)", async () => {
-		await sut.executeAtomically(async () => {
-			await hotelRepository.save(hotel);
-			throw new Error();
-		});
-		expect(await repository.count()).toBe(0);
-	});
+    it("should rollback operation (guarantee atomicity)", async () => {
+        await sut.executeAtomically(async () => {
+            await hotelRepository.save(hotel);
+            throw new Error();
+        });
+        expect(await repository.count()).toBe(0);
+    });
 });

@@ -8,4 +8,3 @@ export type BookRoomInput = {
     startDate: Date;
     endDate: Date;
 };
-

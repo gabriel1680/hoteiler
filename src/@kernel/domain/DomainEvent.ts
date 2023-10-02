@@ -11,4 +11,3 @@ export abstract class DomainEvent<T> {
         return this.data;
     }
 }
-
