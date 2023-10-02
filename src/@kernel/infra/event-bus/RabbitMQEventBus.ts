@@ -7,7 +7,9 @@ export class RabbitMQEventBus implements EventBus {
     private amqpConnection: amqp.Connection;
 
     async connect(): Promise<void> {
-        this.amqpConnection = await amqp.connect("amqp://localhost");
+        this.amqpConnection = await amqp.connect(
+            "amqp://admin:123@localhost:5673"
+        );
     }
 
     async register(event: string, handler: CallableFunction): Promise<void> {

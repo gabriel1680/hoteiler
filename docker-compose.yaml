@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mariadb:10.5.8
+    volumes:
+      - .docker/mysql/data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: hotel
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 123
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: 123
+    ports: 
+      - 5673:5672
+      - 15673:15672
+    volumes:
+      - .docker/rabbitmq/data/:/var/lib/rabbitmq/
+    restart: always
+
+networks:
+  default:
+    driver: bridge
