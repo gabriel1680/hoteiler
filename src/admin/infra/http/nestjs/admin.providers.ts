@@ -7,6 +7,7 @@ import { CreateHotel } from "src/admin/application/usecase/CreateHotel";
 import { HotelRepository } from "src/admin/domain/HotelRepository";
 import { UpdateHotel } from "src/admin/application/usecase/UpdateHotel";
 import { CreateHotelRoom } from "src/admin/application/usecase/CreateHotelRoom";
+import { HotelFacadeImpl } from "src/admin/facade/HotelFacadeImpl";
 
 export const adminProviders: Provider[] = [
     {
@@ -31,6 +32,12 @@ export const adminProviders: Provider[] = [
         provide: CreateHotelRoom,
         useFactory: (repository: HotelRepository) =>
             new CreateHotelRoom(repository),
+        inject: ["HotelRepository"],
+    },
+    {
+        provide: "HotelFacade",
+        useFactory: (repository: HotelRepository) =>
+            new HotelFacadeImpl(repository),
         inject: ["HotelRepository"],
     },
 ];

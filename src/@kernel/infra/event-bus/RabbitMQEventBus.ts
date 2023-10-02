@@ -1,4 +1,4 @@
-import amqp from "amqplib";
+import * as amqp from "amqplib";
 
 import { EventBus } from "src/@kernel/application/EventBus";
 import { DomainEvent } from "src/@kernel/domain/DomainEvent";
