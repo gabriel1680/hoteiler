@@ -1,6 +1,18 @@
 version: '3.9'
 
 services:
+  application:
+    build: .
+    container_name: hotel-api
+    command: sh -c "dockerize -wait tcp://rabbitmq:5672 -timeout 60s -wait-retry-interval 5s npm run start:dev"
+    ports:
+      - 3333:3333
+    depends_on:
+      - mysql
+      - rabbitmq
+    networks:
+      - appnet
+
   mysql:
     image: mariadb:10.5.8
     volumes:
@@ -11,6 +23,8 @@ services:
       MYSQL_DATABASE: hotel
       MYSQL_USER: admin
       MYSQL_PASSWORD: 123
+    networks:
+      - appnet
 
   rabbitmq:
     image: rabbitmq:management
@@ -24,7 +38,9 @@ services:
     volumes:
       - .docker/rabbitmq/data/:/var/lib/rabbitmq/
     restart: always
+    networks:
+      - appnet
 
 networks:
-  default:
+  appnet:
     driver: bridge
