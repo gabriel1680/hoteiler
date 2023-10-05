@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 # DOCKERIZE
 RUN apk add --no-cache openssl
@@ -11,7 +11,11 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
     && rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
 COPY package*.json ./
+
 RUN npm install
+
 COPY . .
-EXPOSE 3333
+
+RUN npm run build
+
 CMD [ "npm", "run", "start:dev" ]
