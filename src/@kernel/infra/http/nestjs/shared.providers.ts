@@ -3,22 +3,31 @@ import { DataSource } from "typeorm";
 
 import { TypeORMTransactionSession } from "../../database/typeorm/TypeORMTransactionalSession";
 import { RabbitMQEventBus } from "../../event-bus/RabbitMQEventBus";
+import { InMemoryEventBus } from "../../event-bus/InMemoryEventBus";
 
 export const sharedProviders: Provider[] = [
     {
         provide: "EventBus",
         useFactory: async () => {
-            const eventBus = new RabbitMQEventBus();
-            await eventBus.connect();
-            return eventBus;
+            const createEventBus =
+                process.env.ENV === "test"
+                    ? async () => new InMemoryEventBus()
+                    : async () => {
+                          const eb = new RabbitMQEventBus();
+                          await eb.connect();
+                          return eb;
+                      };
+            return await createEventBus();
         },
     },
     {
         provide: "DataSource",
         useFactory: async () => {
             const ds = new DataSource({
-                type: "sqlite",
-                database: ":memory:",
+                type: process.env.DB_TYPE as "sqlite" | "mysql",
+                database: process.env.DB_NAME,
+                username: process.env.DB_USER,
+                password: process.env.DB_PASSWORD,
                 synchronize: true,
                 entities: [__dirname + "/../../../../**/entities/**/*.{js,ts}"],
                 logging: ["error"],
