@@ -9,7 +9,9 @@ export class InMemoryEventBus implements EventBus {
     }
 
     async publish(event: DomainEvent<object>): Promise<void> {
-        const handler = this.observers.get(event.name);
-        if (handler) await handler(event);
+        if (this.observers.has(event.name)) {
+            const handler = this.observers.get(event.name);
+            await handler(event);
+        }
     }
 }
